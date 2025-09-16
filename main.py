@@ -165,7 +165,8 @@ if usuarioEncontrado:
 
 # Registrar 3 entradas por usuário (código, nome, senha); 
 
-#  Declarar o valor mínimo e o valor máximo permitido em estoque por categoria, em constantes; 
+# Declarar o valor mínimo e o valor máximo permitido em estoque por categoria, em constantes;
+
 
 # Calcular o quantitativo total de produtos em estoque em uma variável, e o valor total que eles representam em estoque (R$); 
 
