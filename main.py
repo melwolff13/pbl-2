@@ -10,7 +10,12 @@ def perguntaSimNao(pergunta):
 
 
 def pedirDados():
-    codigo = input("Código: ")
+    while True:
+        codigo = input("Código: ")
+        if not codigo.isdigit():
+            print("Código inválido. Tente novamente.")
+        else:
+            break
     nome = input("Nome: ")
     senha = input("Senha: ")
     print()
@@ -53,15 +58,32 @@ def loginUsuario(usuariosRegistrados):
 
 produtos = {}
 codigos = []
+quantidadeTotal = 0
     
-def cadastrarProduto(produtos):
+def cadastrarProduto(produtos, quantidadeTotal):
     print("-- CADASTRAR PRODUTO --\n")
-    codigo = input("Código: ")
-    codigos.append(codigo)
+    while True:
+        codigo = input("Código: ")
+        if not codigo.isdigit():
+            print("Apenas números são válidos")
+        elif codigo in codigos:
+            print("Esse código já existe. Tente novamente.\n")
+        else:
+            codigos.append(codigo)
+            break        
+
     nome = input("Nome: ")
     categoria = input("Categoria: ")
-    quantidade = input("Quantidade: ")
-    preco = input("Preço: ")
+    while True:
+        quantidade = input("Quantidade: ")
+        if not quantidade.isdigit():
+            print("Digite um valor inteiro.")
+        else:
+            quantidade = int(quantidade)
+            quantidadeTotal+=quantidade
+            break
+
+    preco = float(input("Preço: "))
     print()
 
     produtos[codigo] = [nome, categoria, quantidade, preco]
@@ -93,12 +115,16 @@ def editarProduto(produtos, codigos):
     while True:
         codigoEscolhido = input()
         print()
-        if codigoEscolhido in codigos:
+        if not codigoEscolhido.isdigit():
+            print("Apenas números são válidos.")
+        elif codigoEscolhido not in codigos:
+            print("Não há registro desse produto na lista. Tente novamente.\n")
+        else:    
             print(f"Editar PRODUTO {codigoEscolhido}")
             nome = input("Nome: ")
             categoria = input("Categoria: ")
-            quantidade = input("Quantidade: ")
-            preco = input("Preço: ")
+            quantidade = int(input("Quantidade: "))
+            preco = float(input("Preço: "))
             print()
 
             produtos[codigoEscolhido] = [nome, categoria, quantidade, preco]
@@ -106,8 +132,8 @@ def editarProduto(produtos, codigos):
             print("Produto editado com sucesso!\n")
             break
 
-        else:
-            print("Não há registro desse produto na lista. Tente novamente.\n")
+        
+            
 
 
 
@@ -149,11 +175,14 @@ if usuarioEncontrado:
         print()
         match acao:
             case 1:
-                cadastrarProduto(produtos)
+                cadastrarProduto(produtos, quantidadeTotal)
             case 2:
                 editarProduto(produtos, codigos)
             case 3:
                 deletarProduto(produtos, codigos)
+            case 4:
+                cadastrarUsuario()
+            
 
                 
 
@@ -165,9 +194,8 @@ if usuarioEncontrado:
 
 # Registrar 3 entradas por usuário (código, nome, senha); 
 
-# Declarar o valor mínimo e o valor máximo permitido em estoque por categoria, em constantes;
-
+#  Declarar o valor mínimo e o valor máximo permitido em estoque por categoria, em constantes; 
 
 # Calcular o quantitativo total de produtos em estoque em uma variável, e o valor total que eles representam em estoque (R$); 
 
-# Apresentar a porcentagem de estoque no prompt de comando por categoria, junto do nome do usuário que está logado atualmente no sistema.
+# Apresentar a porcentagem de estoque no prompt de comando por categoria, junto do nome do usuário que está logado atualmente no sistema. 5.
