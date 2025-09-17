@@ -194,8 +194,8 @@ if usuarioEncontrado:
 
 # Registrar 3 entradas por usuário (código, nome, senha); 
 
-#  Declarar o valor mínimo e o valor máximo permitido em estoque por categoria, em constantes; 
+# Declarar o valor mínimo e o valor máximo permitido em estoque por categoria, em constantes; 
 
 # Calcular o quantitativo total de produtos em estoque em uma variável, e o valor total que eles representam em estoque (R$); 
 
-# Apresentar a porcentagem de estoque no prompt de comando por categoria, junto do nome do usuário que está logado atualmente no sistema. 5.
+# Apresentar a porcentagem de estoque no prompt de comando por categoria, junto do nome do usuário que está logado atualmente no sistema.
