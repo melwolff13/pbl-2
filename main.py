@@ -36,7 +36,7 @@ def pedirDadosUsuario(acao):
       
     while True:
         nome = input("Nome: ")
-        if not nome:
+        if not nome or nome.isdigit():
             print("\n"+"Digite um nome válido.\n")
         else:
             break
@@ -90,7 +90,7 @@ avisos = []
 def pedirDadosProduto():
     while True:
         nome = input("Nome: ")
-        if not nome:
+        if not nome or nome.isdigit():
             print("\n"+"Digite um nome válido.\n")
         else:
             break
@@ -280,3 +280,4 @@ if usuarioLogado:
             case _:
                 print("Digite uma ação válida.\n")
                 
+
