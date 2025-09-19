@@ -11,10 +11,18 @@ ESTOQUE_POR_CATEGORIA = {
 }
 
 def perguntaSimNao(pergunta):
-    resposta = int(input(pergunta + " (1) SIM (2) NÃO\n"))
+    while True:
+        try:
+            resposta = int(input(pergunta + " (1) SIM (2) NÃO\n"))
+            if resposta != 1 and resposta != 2:
+                print("\n"+"Digite 1 para sim e 2 para não.\n")
+            else:
+                break
+        except ValueError:
+            print("\n"+"Entrada inválida. Digite um inteiro.\n")
     return resposta
-
-
+    
+    
 def pedirDadosUsuario(acao):
     while True:
         codigo = input("Código: ")
@@ -28,7 +36,7 @@ def pedirDadosUsuario(acao):
       
     while True:
         nome = input("Nome: ")
-        if not nome:
+        if not nome or nome.isdigit():
             print("\n"+"Digite um nome válido.\n")
         else:
             break
@@ -76,29 +84,40 @@ def loginUsuario(usuariosRegistrados):
 
 produtos = {}
 codigosProdutos = []
+avisos = []
 
 
 def pedirDadosProduto():
     while True:
         nome = input("Nome: ")
-        if not nome:
+        if not nome or nome.isdigit():
             print("\n"+"Digite um nome válido.\n")
         else:
             break
 
     while True:
         categoria = input("Categoria: ")
+        categoria = categoria.upper()
         if not categoria:
-            print("\n"+"Digite uma categoria válida")
+            print("\n"+"Digite uma categoria válida")        
+        elif categoria not in ESTOQUE_POR_CATEGORIA:
+            print(f"\nAVISO: A categoria '{categoria}' não possui limites de estoque pré-definidos.\n")
+            break
         else:
             break
 
     while True:
         try:
             quantidade = int(input("Quantidade: "))
+            if categoria in ESTOQUE_POR_CATEGORIA:
+                if quantidade < ESTOQUE_POR_CATEGORIA[categoria]["min"]:
+                    print(f"\nAVISO: Estoque de '{nome}' menor do que o mínimo.\n")
+                elif quantidade > ESTOQUE_POR_CATEGORIA[categoria]["max"]:
+                    print(f"\nAVISO: Estoque de '{nome}' maior do que o máximo.\n")
             break
         except ValueError:
             print("\n"+"Digite um valor inteiro.\n")
+
     while True:
         try:
             preco = float(input("Preço: R$"))
@@ -106,7 +125,7 @@ def pedirDadosProduto():
         except ValueError:
             print("\n"+"Digite um valor numérico válido.\n")
 
-    dadosProduto = [nome, categoria.upper(), quantidade, preco]
+    dadosProduto = [nome, categoria, quantidade, preco]
 
     return dadosProduto
 
@@ -222,8 +241,8 @@ def exibirRelatorioEstoque(usuarioLogado, produtos):
 
     print()
 
-
-primeiroAcesso = perguntaSimNao("\nPrimeiro acesso?")
+print()
+primeiroAcesso = perguntaSimNao("Primeiro acesso?")
 
 if primeiroAcesso == 1:
     cadastrarUsuario()
@@ -232,47 +251,34 @@ usuarioLogado = loginUsuario(usuariosRegistrados)
 
 if usuarioLogado:
     while True:
-        acao = int(input("Selecione uma opção:\n"+
+        acao = input("Selecione uma opção:\n"+
                         "(1) Cadastrar Produto\n"+
                         "(2) Editar Produto\n"+
                         "(3) Deletar Produto\n"+
-                        "(4) Cadastrar Usuário\n"+
-                        "(5) Exibir relatório de estoque\n"+
-                        "(6) Encerrar\n"+
-                        "\n"))
+                        "(4) Exibir Produtos Registrados\n"+
+                        "(5) Cadastrar Usuário\n"+
+                        "(6) Exibir Relatório de Estoque\n"+
+                        "(7) Encerrar\n"+
+                        "\n")
         print()
         match acao:
-            case 1:
+            case "1":
                 cadastrarProduto(produtos)
-            case 2:
+            case "2":
                 editarProduto(produtos, codigosProdutos)
-            case 3:
+            case "3":
                 deletarProduto(produtos, codigosProdutos)
-            case 4:
+            case "4":
+                exibirProdutosRegistrados(produtos, codigosProdutos)
+            case "5":
                 cadastrarUsuario()
-            case 5:
+            case "6":
                 exibirRelatorioEstoque(usuarioLogado, produtos)
-            case 6:
+            case "7":
                 print("Programa encerrado.\n")
                 break
             case _:
                 print("Digite uma ação válida.\n")
                 
+
                 
-<<<<<<< HEAD
-
-
-
-# Selecionar uma entre 4 opções: Cadastro de Produto, Edição de Produto e Deleção de Produto, Cadastrar Usuário.
-
-# Registrar 5 entradas por produto (código, nome, categoria, quantidade e preço);
-
-# Registrar 3 entradas por usuário (código, nome, senha); 
-
-# Declarar o valor mínimo e o valor máximo permitido em estoque por categoria, em constantes; 
-
-# Calcular o quantitativo total de produtos em estoque em uma variável, e o valor total que eles representam em estoque (R$); 
-
-# Apresentar a porcentagem de estoque no prompt de comando por categoria, junto do nome do usuário que está logado atualmente no sistema.
-=======
->>>>>>> d677eb659635e4bde0500423f7b765d77e4a70c5
