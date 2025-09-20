@@ -186,20 +186,43 @@ def editarProduto(produtos, codigosProdutos):
                 
 def deletarProduto(produtos, codigosProdutos):
     print("-- DELETAR PRODUTO --\n")
-    print("Insira o código do produto que deseja deletar:\n")
     exibirProdutosRegistrados(produtos, codigosProdutos)
+    print("Insira o código do produto que deseja deletar (ou digite 0 para voltar ao menu):\n")
+    
+    def perguntaSimNaoLocal(pergunta):
+        while True:
+            try:
+                resposta = int(input(pergunta + " (0) MENU (1) SIM (2) NÃO\n"))
+                if resposta not in (0, 1, 2):
+                    print("\nDigite 1 para SIM, 2 para NÃO ou 0 para CANCELAR.\n")
+                else:
+                    return resposta
+            except ValueError:
+                print("\nEntrada inválida. Digite um inteiro.\n")
+    
     while True:
-        codigoEscolhido = input("Código: ")
+        codigoEscolhido = input("Código: ").strip()
         print()
+
+        if codigoEscolhido == "0":
+            return
+
         if codigoEscolhido in codigosProdutos:
-            confirmar = perguntaSimNao(f"Deseja excluir o produto {codigoEscolhido}?")
+            confirmar = perguntaSimNaoLocal(f"Deseja excluir o produto {codigoEscolhido}?")
             print()
+
             if confirmar == 1:
                 del produtos[codigoEscolhido]
                 codigosProdutos.remove(codigoEscolhido)
                 print(f"Produto {codigoEscolhido} deletado\n")
                 exibirProdutosRegistrados(produtos, codigosProdutos)
-                break
+                return
+            elif confirmar == 0:
+                print("Operação cancelada, retornando ao meu\n")
+                return
+            else:
+                print("Exclusão cancelada.\n")
+
         else:
             print("Não há registro desse produto na lista. Tente novamente.\n")
 
