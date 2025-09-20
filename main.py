@@ -218,7 +218,7 @@ def deletarProduto(produtos, codigosProdutos):
                 exibirProdutosRegistrados(produtos, codigosProdutos)
                 return
             elif confirmar == 0:
-                print("Operação cancelada, retornando ao meu\n")
+                print("Operação cancelada, retornando ao menu\n")
                 return
             else:
                 print("Exclusão cancelada.\n")
